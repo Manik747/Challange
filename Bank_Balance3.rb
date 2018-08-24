@@ -1,6 +1,13 @@
+users = {'cat'=> 100,'dog'=>50,'donkey'=> 1000}
+
+
 puts "welcome to the banking app"
-#password function
+puts "what is your user name" 
+user_name = gets.chomp
+if user_name= users
 puts "what is you password?"
+else puts "invalid username"  
+end   
 input = gets.chomp
 password= "password"
 application_runtime= true
@@ -17,13 +24,16 @@ if input != password
 end
 system "clear"
 
+
+
 #main menu    
-balance = File.read("balance.txt").to_f
+balance = 0
 
 while application_runtime
 
-    puts "Welcome what would you like to do? (options:Deposit; Withdraw; Balance; Quit)"
+    puts "Welcome what would you like to do? (options:Deposit; Withdraw Balance; Quit)"
     b = ["random","balance","deposit","quit","withdraw"]
+       
     options = gets.chomp
     until options == b[1] or b[2] or b[3]
         puts "input invalid"
@@ -46,7 +56,6 @@ while application_runtime
         puts "your balance is #{balance}"   
     elsif options == b[3]
         #quit functions
-        File.write("balance.txt", balance)
         application_runtime=false
         puts "good bye"
     elsif options == b[4]
@@ -60,8 +69,6 @@ while application_runtime
         end
         balance = balance - input_withdrawal
         puts "your balance is #{balance}"
-
-    File.write("balance.txt", balance)
     end
 end
 
