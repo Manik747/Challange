@@ -1,39 +1,46 @@
-users = {'cat'=> 100,'dog'=>50,'donkey'=> 1000}
-
-
-puts "welcome to the banking app"
-puts "what is your user name" 
-user_name = gets.chomp
-if user_name= users
-puts "what is you password?"
-else puts "invalid username"  
-end   
-input = gets.chomp
-password= "password"
-application_runtime= true
-
+#user name function 
+users = { 
+    "leman" => File.open("leman.txt"),
+    "legirl" => {"password" => "456def", "balance" => 0}
+}
 count=0
-until input == password or count== 2
+puts "welcome to the banking app, please tell me your username"
+username=gets.chomp
+until users.has_key?(username) or count==2
+    puts "user not recognised try again"
+    username=gets.chomp
+    count +=1
+end
+
+if  !users.has_key?(username)
+    puts "no user recognised program closing"
+    return
+end
+if
+#password function
+expected_password = users[username]["password"]
+puts "what is you password?"
+input_password = gets.chomp
+application_runtime= true
+count=0
+while input_password != expected_password and count < 2
     puts "input invalid, try again"
     count +=1
-    input = gets.chomp
+    input_password = gets.chomp
 end
-if input != password 
+if input_password != expected_password 
     puts "restart app-incorrect password"
     return 
 end
 system "clear"
 
-
-
 #main menu    
-balance = 0
+balance = users[username]["balance"]
 
 while application_runtime
 
-    puts "Welcome what would you like to do? (options:Deposit; Withdraw Balance; Quit)"
+    puts "Welcome what would you like to do? (options:Deposit; Withdraw; Balance; Quit)"
     b = ["random","balance","deposit","quit","withdraw"]
-       
     options = gets.chomp
     until options == b[1] or b[2] or b[3]
         puts "input invalid"
@@ -56,6 +63,7 @@ while application_runtime
         puts "your balance is #{balance}"   
     elsif options == b[3]
         #quit functions
+        File.write("balance.txt", balance)
         application_runtime=false
         puts "good bye"
     elsif options == b[4]
@@ -69,6 +77,8 @@ while application_runtime
         end
         balance = balance - input_withdrawal
         puts "your balance is #{balance}"
+
+    File.write("balance.txt", balance)
     end
 end
-
+end
