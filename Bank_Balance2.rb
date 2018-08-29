@@ -3,7 +3,7 @@ puts "welcome to the banking app"
 puts "what is you password?"
 input = gets.chomp
 password= "password"
-application_runtime= true
+application_runtime=true
 
 count=0
 until input == password or count== 2
